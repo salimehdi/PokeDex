@@ -1,18 +1,16 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Search from './Components/search/search'
-import CustomRouter from './routes/CustomRoute'
+import Pokedex from './components/Pokedex/Pokedex'
+import PokemonDetails from './components/PokemonDetails/PokemonDetails'
 
 function App() {
-
   return (
-    <div className='main'>
-      <h1 className='main-heading' >POKEMON</h1>
-      <CustomRouter/>
-    </div>
+      <Routes>
+        <Route path="/" element={<Pokedex />} />
+        <Route path="/pokemon/:id" element={<PokemonDetails />} />
+        <Route path="*" element={<h1>Not found</h1>} />
+      </Routes>
   )
 }
 
 export default App
-
-
-  

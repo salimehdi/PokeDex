@@ -1,10 +1,17 @@
-import {FaSearch} from 'react-icons/fa'
-function Search () {
+// CSS imports
+import useDebounce from '../../hooks/useDebounce';
+import './Search.css';
+
+function Search({ updateSearchTerm }) {
+    const debounceUpdateSearch = useDebounce((e) => updateSearchTerm(e.target.value));
     return (
-        <div className='search-bar' >
-        <FaSearch className='search-icon'/>
-        <input type="text" id="search-bar-input" />
-        </div> 
+        <input 
+            id='search-pokemon'
+            type="text" 
+            placeholder="which pokemon you're loooking for ? " 
+            onChange={debounceUpdateSearch}
+        />
     )
 }
-export default Search
+
+export default Search;

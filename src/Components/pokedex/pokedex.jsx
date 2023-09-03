@@ -1,13 +1,20 @@
-import { Link } from 'react-router-dom'
-import './pokedex.css'
-function Pokedex ({name , image ,id}){
+import { useState } from 'react';
+import PokemonList from '../PokemonList/PokemonList';
+import Search from '../Search/Search';
+import './Pokedex.css';
+import PokemonDetails from '../PokemonDetails/PokemonDetails';
+
+function Pokedex() {
+
+    const [searchTerm, setSearchTerm] = useState('');
+
     return (
-        <Link to={`/pokemon/${id}`}>
-        <div className='each-poke-card'>
-            <h3>{name}</h3>
-            <img src={image}/>
+        <div className='pokedex-wrapper'>
+            <h1>POKEDEX</h1>
+            <Search updateSearchTerm={setSearchTerm} />
+            {searchTerm ? <PokemonDetails pokemonName={searchTerm} /> : <PokemonList />}
         </div>
-        </Link>
     )
 }
-export default Pokedex 
+
+export default Pokedex;

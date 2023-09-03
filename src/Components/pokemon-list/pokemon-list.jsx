@@ -1,5 +1,5 @@
 import './pokemon-list.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useState , use } from 'react';
 import Pokedex from '../pokedex/pokedex'
 import axios from 'axios'
 import Search from '../search/search';

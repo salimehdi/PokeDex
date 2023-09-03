@@ -1,55 +1,54 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"
-import './pokemonDetails.css'
-import {FaArrowLeft} from 'react-icons/fa'
+// CSS imports
+import './PokemonDetails.css';
 
-function PokemonDetails () {
-    
-    const [isLoading , setIsLoading] = useState(true)
-    const [pokemon , setPokemon] = useState([])
-    const {id} = useParams();
-    async function downloadPokemon () {
-        setIsLoading(true)
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-        setPokemon({
-            name:response.data.name,
-            image:response.data.sprites.other["official-artwork"].front_shiny,
-            height:response.data.height,
-            weight:response.data.weight,
-            types:response.data.types.map((t)=>t.type.name)
-        })
-        setIsLoading(false)
-    }
-    useEffect(()=>{
-        downloadPokemon()
-        
-    },[])
+import { Link } from 'react-router-dom';
+
+// Custom Hook
+import usePokemon from '../../hooks/usePokemon';
+import Pokemon from '../Pokemon/Pokemon';
+
+function PokemonDetails({ pokemonName }) {
+
+    const [pokemon, pokemonListState] = usePokemon(pokemonName);
     return (
-    
+        <>
+        <Link style={{ textDecoration: 'none' }} to="/">
+            <h1 className='pokedex-redirect'>
+                Pokedex
+            </h1>
+        </Link>
+        {pokemon && <div className='pokemon-details-wrapper'>
+            <div className='pokemon-detail-name'>
+                {pokemon.name}
+            </div>
+            <div className='pokemon-image'>
+                <img src={pokemon.image} />
+            </div>
+            <div className='pokemon-attr'>
+                <div>
+                    height: {pokemon.height}
 
-        
-        (isLoading)?'Loading....':
-               
-        (<>
-        <img className="inner-pokemon-image" src={pokemon.image} />
-        <div className="pokemon-details">
-        <h2>Name: {pokemon.name}</h2>
-        <h3>Height: {pokemon.height}cm</h3>
-        <h3>Weight: {pokemon.weight}kg</h3>
-        {(pokemon.types) && (
-            <h3>{pokemon.types.map((t)=> `${t} ` )}</h3>
-        )
-        }
-        <Link to="/" ><button className="go-back"><FaArrowLeft/></button></Link>
+                </div>
+                <div>
+                weight: {pokemon.weight}
+
+                </div>
+            </div>
+            <div className='pokemon-types'>
+                <h1>Type:</h1> {pokemon.types.map(t => <span className='type' key={t.type.name}>{t.type.name}</span>)}
+            </div>
+        </div>}
+        <div className='similar-pokemons'>
+            <h2> Similar pokemons </h2>
+            <div className='pokemon-similar-boxes'>
+                {pokemonListState.pokemonList.length > 0 && 
+                     pokemonListState.pokemonList.map(pokemon => <Pokemon name={pokemon.name} key={pokemon.id} url={pokemon.image} id={pokemon.id} />)
+                }
+            </div>
         </div>
-        
         </>
-        )
-        
 
-    
     )
 }
 
-export default PokemonDetails
+export default PokemonDetails;
