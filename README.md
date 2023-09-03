@@ -1,8 +1,14 @@
-# React + Vite
+# React + Vite PokeApi based project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a pokeApi based project which uses the 
+- name
+- weight
+- height
+- power
+- spirit .
+  
+to showcase each and every pokemon minimalistically
 
-Currently, two official plugins are available:
+There a option of next and previous in the response of API which helped me to make a prev and next button at the bottom of the page
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* https://pokeapi.co/api/v2/pokemon
